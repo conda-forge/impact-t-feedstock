@@ -49,9 +49,11 @@ requirements:
     - {{ compiler('m2w64_fortran') }}        # [win]
     - cmake
   host:
-    - {{ mpi }}  # [mpi != 'nompi']
+    - mpich ==3.3.2  # [mpi == 'mpich']
+    - openmpi  # [mpi == 'openmpi']
   run:
-    - {{ mpi }}  # [mpi != 'nompi']
+    - mpich ==3.3.2  # [mpi == 'mpich']
+    - openmpi  # [mpi == 'openmpi']
 
 test:
   commands:
