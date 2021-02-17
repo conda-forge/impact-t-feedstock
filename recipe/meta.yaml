@@ -1,7 +1,7 @@
 {% set name = "impact-t" %}
-{% set version = "2.0" %}
+{% set version = "2.1" %}
 
-{% set build = 2 %}
+{% set build = 0 %}
 # ensure mpi is defined (needed for conda-smithy recipe-lint)
 {% set mpi = mpi or 'nompi' %}
 
@@ -16,7 +16,7 @@ package:
 
 source:
   url: https://github.com/hhslepicka/IMPACT-T/archive/v{{ version }}.tar.gz
-  sha256: a486ba796af3b7a937d168a9208c92e156c02735cb5d42b25a10fb8516e98f34
+  sha256: 5b8f58241be6bd4eb5afc9bf8f00da161780156920d2d754bb0f04dcfb36dd7b
 
 build:
   number: {{ build }}
@@ -32,7 +32,7 @@ build:
   {% else %}
   {% set mpi_prefix = "nompi" %}
   {% endif %}
-  string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
+  string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
 
   {% if mpi != 'nompi' %}
 
