@@ -25,7 +25,7 @@ cmake \
 make -j${CPU_COUNT} VERBOSE=1 install
 
 if [[ "$mpi" != "nompi" ]]; then
-    export FFLAGS="$FFLAGS -fallow-argument-mismatch $LDFLAGS"
+    export FFLAGS="$FFLAGS -w -fallow-argument-mismatch $LDFLAGS"
     export FC=mpifort
 
     cd ..
