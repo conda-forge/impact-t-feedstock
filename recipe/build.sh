@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# for cross compiling using openmpi
+export OPAL_PREFIX=$PREFIX
+
 if [[ "$target_platform" == osx* ]]; then
     CMAKE_FLAGS+=" -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}"
     CMAKE_FLAGS+=" -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}"
@@ -13,6 +16,8 @@ mkdir build
 cd build
 
 cmake \
+    ${CMAKE_ARGS} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DUSE_MPI=OFF \
     ../src
@@ -20,13 +25,18 @@ cmake \
 make -j${CPU_COUNT} VERBOSE=1 install
 
 if [[ "$mpi" != "nompi" ]]; then
-     cd ..
-     mkdir build_mpi
-     cd build_mpi
-     cmake \
-         -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-         -DUSE_MPI=ON \
-         ../src
+    export FFLAGS="$FFLAGS -std=legacy $LDFLAGS"
+    export FC=mpifort
 
-     make -j${CPU_COUNT} VERBOSE=1 install
+    cd ..
+    mkdir build_mpi
+    cd build_mpi
+    cmake \
+        ${CMAKE_ARGS} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+        -DUSE_MPI=ON \
+        ../src
+
+    make -j${CPU_COUNT} VERBOSE=1 install
 fi
