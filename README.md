@@ -1,7 +1,7 @@
 About impact-t
 ==============
 
-Home: https://github.com/hhslepicka/IMPACT-T
+Home: https://github.com/impact-lbl/IMPACT-T
 
 Package license: BSD-3-Clause-LBNL
 
@@ -9,7 +9,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/impact-t-feedst
 
 Summary: IMPACT-T, A 3D Parallel Particle Tracking Code in Time Domain
 
-Development: https://github.com/hhslepicka/IMPACT-T
+Development: https://github.com/impact-lbl/IMPACT-T
 
 Documentation: https://amac.lbl.gov/~jiqiang/IMPACT-T/index.html
 
@@ -128,6 +128,7 @@ Installing `impact-t` from the `conda-forge` channel can be achieved by adding `
 
 ```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
 Once the `conda-forge` channel has been enabled, `impact-t` can be installed with:
