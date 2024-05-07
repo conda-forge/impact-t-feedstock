@@ -15,7 +15,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/impact-lbl/IMPACT-T/archive/V{{ version }}.tar.gz
+  url: https://github.com/impact-lbl/IMPACT-T/archive/v{{ version }}.tar.gz
   sha256: 2b0ff1b0c785c4eec0f63eb17ed63f2f4e66d43795318e17bbf0d3258a9c60c0
 
 build:
