@@ -1,5 +1,5 @@
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 m2w64_c_compiler:
@@ -8,5 +8,9 @@ m2w64_fortran_compiler:
 - m2w64-toolchain
 mpi:
 - nompi
+mpich:
+- '4'
+openmpi:
+- '4'
 target_platform:
 - win-64
