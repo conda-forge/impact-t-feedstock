@@ -1,6 +1,7 @@
 mkdir build
 cd build
 
+set "LDFLAGS=%LDFLAGS% /defaultlib:ucrt.lib"
 set "LDFLAGS=%LDFLAGS% /defaultlib:msvcrt.lib"
 
 cmake -G "MinGW Makefiles" ^
