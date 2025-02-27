@@ -1,7 +1,7 @@
 mkdir build
 cd build
 
-set "LDFLAGS=%LDFLAGS% -lm"
+set "LDFLAGS=%LDFLAGS% /defaultlib:msvcrt.lib"
 
 cmake -G "MinGW Makefiles" ^
     -D CMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
