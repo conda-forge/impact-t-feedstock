@@ -51,6 +51,7 @@ requirements:
     - {{ compiler("fortran") }}
     - cmake
     - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
+    - libpgmath  # [win]
   host:
     - {{ mpi }}  # [mpi != 'nompi']
   run:
