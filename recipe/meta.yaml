@@ -17,6 +17,9 @@ package:
 source:
   url: https://github.com/impact-lbl/IMPACT-T/archive/v{{ version }}.tar.gz
   sha256: 3740b7262b409f11aa686c64db749e0a133411c78e9f5eecb6359f2f9f9762ce
+  patches:
+    - patches/0001-bes-to-bessel.patch
+
 
 build:
   number: {{ build }}
