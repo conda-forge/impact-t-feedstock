@@ -5,7 +5,8 @@ cd build
 @REM set "LDFLAGS=%LDFLAGS% /defaultlib:msvcrt.lib"
 
 cmake -G "MinGW Makefiles" ^
-    -D CMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
+    -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
+    -DLIBPGMATH_DIR="%LIBRARY_PREFIX%" ^
     ../src
 if errorlevel 1 exit 1
 
