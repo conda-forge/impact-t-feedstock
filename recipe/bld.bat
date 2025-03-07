@@ -1,7 +1,7 @@
 mkdir build
 cd build
 
-set "LD="
+set "LD=%FC%"
 
 set "LDFLAGS=%LDFLAGS% -Wl,-defaultlib:ucrt.lib -Wl,-defaultlib:msvcrt.lib -Wl,-defaultlib:pgmath.lib"
 
