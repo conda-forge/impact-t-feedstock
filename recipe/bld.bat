@@ -1,7 +1,9 @@
 mkdir build
 cd build
 
-set "LDFLAGS=%LDFLAGS% /defaultlib:ucrt.lib /defaultlib:msvcrt.lib /defaultlib:pgmath.lib"
+set "LD="
+
+set "LDFLAGS=%LDFLAGS% -Wl,-defaultlib:ucrt.lib -Wl,-defaultlib:msvcrt.lib -Wl,-defaultlib:pgmath.lib"
 
 cmake -G "MinGW Makefiles" ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
