@@ -17,7 +17,7 @@ context:
   build_number: ${{ 1000 * build + (100 if mpi == "openmpi" else 0) + arch_level - 1 }}
   # gcc/clang -march= name for the microarch level (x86-64, x86-64-v3,
   # x86-64-v4); empty on non-x86_64 platforms
-  build_arch: ${{ ("x86-64" if arch_level == 1 else "x86-64-v" ~ arch_level) if unix and x86_64 else "" }}
+  build_arch: ${{ "x86-64-v" ~ arch_level if unix and x86_64 and arch_level > 1 else "" }}
 
 package:
   name: ${{ name }}
