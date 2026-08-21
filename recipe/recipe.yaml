@@ -7,6 +7,14 @@ context:
   # mpi variants get a build string so packages can depend on them explicitly:
   # `pkg * mpi_mpich_*` for mpich, `pkg * mpi_*` for any mpi, `pkg * nompi_*` for no mpi
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" ~ mpi }}
+  # microarch_level is only defined on x86_64 (see conda_build_config.yaml)
+  arch_level: ${{ microarch_level | default(1) | int }}
+  # Build number encodes solver priority: openmpi beats mpich/nompi (+100),
+  # and within each mpi variant a higher microarch level wins (+0..3).
+  # Incrementing `build` (x1000) outranks everything from prior builds.
+  #   nompi/mpich v1: 0    v3 (AVX2): 2    v4 (AVX512): 3
+  #   openmpi    v1: 100   v3 (AVX2): 102  v4 (AVX512): 103
+  build_number: ${{ 1000 * build + (100 if mpi == "openmpi" else 0) + arch_level - 1 }}
 
 package:
   name: ${{ name }}
@@ -17,9 +25,8 @@ source:
   sha256: 482836efe1ff436e3f3ce4af35be3410a051aa410491f864425f3f6fd2d68210
 
 build:
-  # prioritize the openmpi variant via build number
-  number: ${{ build + 100 if mpi == "openmpi" else build }}
-  string: ${{ mpi_prefix }}_h${{ hash }}_${{ build + 100 if mpi == "openmpi" else build }}
+  number: ${{ build_number }}
+  string: ${{ mpi_prefix }}_h${{ hash }}_${{ build_number }}
   skip:
     - win
 
@@ -29,6 +36,10 @@ requirements:
     - ${{ stdlib("c") }}
     - ${{ compiler("c") }}
     - ${{ compiler("fortran") }}
+    - if: unix and x86_64
+      # NOTE: this is here for targeting AVX512 and lower (see
+      # https://conda-forge.org/docs/maintainer/knowledge_base/#microarch)
+      then: x86_64-microarch-level ==${{ microarch_level }}
     - cmake
     - if: mpi == "openmpi" and build_platform != target_platform
       then: openmpi
