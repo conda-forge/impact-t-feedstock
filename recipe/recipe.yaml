@@ -7,17 +7,15 @@ context:
   # mpi variants get a build string so packages can depend on them explicitly:
   # `pkg * mpi_mpich_*` for mpich, `pkg * mpi_*` for any mpi, `pkg * nompi_*` for no mpi
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" ~ mpi }}
-  # microarch_level is only defined on x86_64 (see conda_build_config.yaml)
-  arch_level: ${{ microarch_level | default(1) | int }}
   # Build number encodes solver priority: openmpi beats mpich/nompi (+100),
   # and within each mpi variant a higher microarch level wins (+0..3).
   # Incrementing `build` (x1000) outranks everything from prior builds.
   #   nompi/mpich v1: 0    v3 (AVX2): 2    v4 (AVX512): 3
   #   openmpi    v1: 100   v3 (AVX2): 102  v4 (AVX512): 103
-  build_number: ${{ 1000 * build + (100 if mpi == "openmpi" else 0) + arch_level - 1 }}
+  build_number: ${{ 1000 * build + (100 if mpi == "openmpi" else 0) + microarch_level - 1 }}
   # gcc/clang -march= name for the microarch level (x86-64, x86-64-v3,
   # x86-64-v4); empty on non-x86_64 platforms
-  build_arch: ${{ "x86-64-v" ~ arch_level if unix and x86_64 and arch_level > 1 else "" }}
+  build_arch: ${{ "x86-64-v" ~ microarch_level if unix and x86_64 and microarch_level > 1 else "" }}
 
 package:
   name: ${{ name }}
