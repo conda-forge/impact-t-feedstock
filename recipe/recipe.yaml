@@ -1,0 +1,88 @@
+schema_version: 1
+
+context:
+  name: impact-t
+  version: "3.1.5"
+  build: 0
+  # mpi variants get a build string so packages can depend on them explicitly:
+  # `pkg * mpi_mpich_*` for mpich, `pkg * mpi_*` for any mpi, `pkg * nompi_*` for no mpi
+  mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" ~ mpi }}
+  # Redefine microarch_level from the build matrix as an integer
+  microarch_level: ${{ microarch_level | default(1) | int }}
+  # Build number encodes solver priority: openmpi beats mpich/nompi (+100),
+  # and within each mpi variant a higher microarch level wins (+0..3).
+  # Incrementing `build` (x1000) outranks everything from prior builds.
+  #   nompi/mpich v1: 0    v3 (AVX2): 2    v4 (AVX512): 3
+  #   openmpi    v1: 100   v3 (AVX2): 102  v4 (AVX512): 103
+  build_number: ${{ 1000 * build + (100 if mpi == "openmpi" else 0) + microarch_level - 1 }}
+  # gcc/clang -march= name for the microarch level (x86-64, x86-64-v3,
+  # x86-64-v4); empty on non-x86_64 platforms
+  build_arch: ${{ "x86-64-v" ~ microarch_level if linux and x86_64 and microarch_level > 1 else "" }}
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/impact-lbl/IMPACT-T/archive/v${{ version }}.tar.gz
+  sha256: 482836efe1ff436e3f3ce4af35be3410a051aa410491f864425f3f6fd2d68210
+
+build:
+  number: ${{ build_number }}
+  string: ${{ mpi_prefix }}_h${{ hash }}_${{ build_number }}
+  skip:
+    - win
+  script:
+    file: build.sh
+    env:
+      BUILD_MICROARCH: ${{ build_arch }}
+
+requirements:
+  build:
+    - make
+    - ${{ stdlib("c") }}
+    - ${{ compiler("c") }}
+    - ${{ compiler("fortran") }}
+    - if: linux and x86_64
+      # NOTE: this is here for targeting AVX512 and lower (see
+      # https://conda-forge.org/docs/maintainer/knowledge_base/#microarch)
+      then: x86_64-microarch-level ==${{ microarch_level }}
+    - cmake
+    - if: mpi == "openmpi" and build_platform != target_platform
+      then: openmpi
+  host:
+    - if: mpi != "nompi"
+      then: ${{ mpi }}
+    - fftw * ${{ mpi_prefix }}*
+  run:
+    - if: mpi != "nompi"
+      then: ${{ mpi }}
+  run_exports:
+    - if: mpi != "nompi"
+      then: ${{ name }} * ${{ mpi_prefix }}_*
+
+tests:
+  - script:
+      - which ImpactTexe
+      - if: mpi != "nompi"
+        then: which ImpactTexe-mpi
+
+about:
+  homepage: https://github.com/impact-lbl/IMPACT-T
+  license: BSD-3-Clause-LBNL
+  license_file: src/license.txt
+  summary: IMPACT-T, A 3D Parallel Particle Tracking Code in Time Domain
+  description: |
+    IMPACT-T is a fully three-dimensional program to track relativistic
+    charged particles taking into account space charge forces,
+    short-range longitudinal and transverse wakefields, coherent
+    synchrotron radiation (CSR) wakefield in accelerators.
+  documentation: https://github.com/impact-lbl/IMPACT-T/tree/master/doc
+  repository: https://github.com/impact-lbl/IMPACT-T
+
+extra:
+  feedstock-name: impact-t
+  recipe-maintainers:
+    - ken-lauer
+    - hhslepicka
+    - ChristopherMayes

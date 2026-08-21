@@ -11,13 +11,12 @@ Summary: IMPACT-T, A 3D Parallel Particle Tracking Code in Time Domain
 
 Development: https://github.com/impact-lbl/IMPACT-T
 
-Documentation: https://amac.lbl.gov/~jiqiang/IMPACT-T/index.html
+Documentation: https://github.com/impact-lbl/IMPACT-T/tree/master/doc
 
 IMPACT-T is a fully three-dimensional program to track relativistic
 charged particles taking into account space charge forces,
 short-range longitudinal and transverse wakefields, coherent
 synchrotron radiation (CSR) wakefield in accelerators.
-
 
 Current build status
 ====================
@@ -89,31 +88,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `impact-t` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda install impact-t
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba install impact-t
 ```
 
-It is possible to list all of the versions of `impact-t` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add impact-t
+# for installing globally
+pixi global install impact-t
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `impact-t` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search impact-t --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search impact-t --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search impact-t --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -125,6 +166,8 @@ mamba repoquery whoneeds impact-t --channel conda-forge
 # List dependencies of `impact-t`:
 mamba repoquery depends impact-t --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
