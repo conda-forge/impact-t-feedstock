@@ -17,7 +17,7 @@ context:
   build_number: ${{ 1000 * build + (100 if mpi == "openmpi" else 0) + microarch_level - 1 }}
   # gcc/clang -march= name for the microarch level (x86-64, x86-64-v3,
   # x86-64-v4); empty on non-x86_64 platforms
-  build_arch: ${{ "x86-64-v" ~ microarch_level if unix and x86_64 and microarch_level > 1 else "" }}
+  build_arch: ${{ "x86-64-v" ~ microarch_level if linux and x86_64 and microarch_level > 1 else "" }}
 
 package:
   name: ${{ name }}
@@ -43,7 +43,7 @@ requirements:
     - ${{ stdlib("c") }}
     - ${{ compiler("c") }}
     - ${{ compiler("fortran") }}
-    - if: unix and x86_64
+    - if: linux and x86_64
       # NOTE: this is here for targeting AVX512 and lower (see
       # https://conda-forge.org/docs/maintainer/knowledge_base/#microarch)
       then: x86_64-microarch-level ==${{ microarch_level }}
