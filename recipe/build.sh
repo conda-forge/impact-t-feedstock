@@ -24,7 +24,8 @@ cmake \
   -DUSE_MPI=OFF \
   ../src
 
-cmake --install . -j${CPU_COUNT} --verbose
+cmake --build . -j${CPU_COUNT} --verbose
+cmake --install .
 
 if [[ "$mpi" != "nompi" ]]; then
   export FFLAGS="$FFLAGS -std=legacy $LDFLAGS"
@@ -41,5 +42,6 @@ if [[ "$mpi" != "nompi" ]]; then
     -DUSE_MPI=ON \
     ../src
 
-  cmake --install . -j${CPU_COUNT} --verbose
+  cmake --build . -j${CPU_COUNT} --verbose
+  cmake --install .
 fi
