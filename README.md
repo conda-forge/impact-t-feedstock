@@ -11,13 +11,12 @@ Summary: IMPACT-T, A 3D Parallel Particle Tracking Code in Time Domain
 
 Development: https://github.com/impact-lbl/IMPACT-T
 
-Documentation: https://amac.lbl.gov/~jiqiang/IMPACT-T/index.html
+Documentation: https://github.com/impact-lbl/IMPACT-T/tree/master/doc
 
 IMPACT-T is a fully three-dimensional program to track relativistic
 charged particles taking into account space charge forces,
 short-range longitudinal and transverse wakefields, coherent
 synchrotron radiation (CSR) wakefield in accelerators.
-
 
 Current build status
 ====================
@@ -44,24 +43,66 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>osx_64_mpimpich</td>
+              <td>osx_64_microarch_level1mpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level1mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_mpinompi</td>
+              <td>osx_64_microarch_level1mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level1mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_mpiopenmpi</td>
+              <td>osx_64_microarch_level1mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level1mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_microarch_level3mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level3mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_microarch_level3mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level3mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_microarch_level3mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level3mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_microarch_level4mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level4mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_microarch_level4mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level4mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_microarch_level4mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/impact-t-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_microarch_level4mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr>
