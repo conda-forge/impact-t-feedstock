@@ -7,6 +7,8 @@ context:
   # mpi variants get a build string so packages can depend on them explicitly:
   # `pkg * mpi_mpich_*` for mpich, `pkg * mpi_*` for any mpi, `pkg * nompi_*` for no mpi
   mpi_prefix: ${{ "nompi" if mpi == "nompi" else "mpi_" ~ mpi }}
+  # Redefine microarch_level from the build matrix as an integer
+  microarch_level: ${{ microarch_level | default(1) | int }}
   # Build number encodes solver priority: openmpi beats mpich/nompi (+100),
   # and within each mpi variant a higher microarch level wins (+0..3).
   # Incrementing `build` (x1000) outranks everything from prior builds.
@@ -51,6 +53,7 @@ requirements:
   host:
     - if: mpi != "nompi"
       then: ${{ mpi }}
+    - fftw * ${{ mpi_prefix }}*
   run:
     - if: mpi != "nompi"
       then: ${{ mpi }}

@@ -20,6 +20,7 @@ cmake \
   ${CMAKE_ARGS} \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DUSE_FFTW=ON \
   -DUSE_MPI=OFF \
   ../src
 
@@ -35,6 +36,7 @@ if [[ "$mpi" != "nompi" ]]; then
   cmake \
     ${CMAKE_ARGS} \
     -DCMAKE_BUILD_TYPE=Release \
+    -DUSE_FFTW=ON \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DUSE_MPI=ON \
     ../src
