@@ -15,6 +15,9 @@ context:
   #   nompi/mpich v1: 0    v3 (AVX2): 2    v4 (AVX512): 3
   #   openmpi    v1: 100   v3 (AVX2): 102  v4 (AVX512): 103
   build_number: ${{ 1000 * build + (100 if mpi == "openmpi" else 0) + arch_level - 1 }}
+  # gcc/clang -march= name for the microarch level (x86-64, x86-64-v3,
+  # x86-64-v4); empty on non-x86_64 platforms
+  build_arch: ${{ ("x86-64" if arch_level == 1 else "x86-64-v" ~ arch_level) if unix and x86_64 else "" }}
 
 package:
   name: ${{ name }}
@@ -29,6 +32,10 @@ build:
   string: ${{ mpi_prefix }}_h${{ hash }}_${{ build_number }}
   skip:
     - win
+  script:
+    file: build.sh
+    env:
+      BUILD_MICROARCH: ${{ build_arch }}
 
 requirements:
   build:

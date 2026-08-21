@@ -12,6 +12,11 @@ if [[ "$target_platform" == osx* ]]; then
   export PATH="${PATH}:${RECIPE_DIR}/fake-bin"
 fi
 
+if [[ -n "${BUILD_MICROARCH:-}" ]]; then
+  # replace the default -march/-mtune with the microarch-level target
+  FFLAGS="$(echo "$FFLAGS" | sed -E 's/-m(arch|tune)=[^ ]+//g') -march=$BUILD_MICROARCH"
+fi
+
 mkdir build
 cd build
 
